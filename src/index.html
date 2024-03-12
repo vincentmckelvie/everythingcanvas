@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Primary Meta Tags -->
+		<title>Everything Canvas</title>
+		<meta name="title" content="everythingcanv.as">
+		<meta name="description" content="Paint with the Everything Library.">
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website">
+		<meta property="og:url" content="https://www.everythingcanv.as/">
+		<meta property="og:title" content="Everything Canvas">
+		<meta property="og:description" content="Paint with the Everything Library.">
+		<meta property="og:image" content="https://www.everythingcanv.as/extras/meta-2.jpg">
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image">
+		<meta property="twitter:url" content="https://www.everythingcanv.as/">
+		<meta property="twitter:title" content="Everything Canvas">
+		<meta property="twitter:description" content="Paint with the Everything Library.">
+		<meta property="og:image" content="https://www.everythingcanv.as/extras/meta-2.jpg">		
+		<meta charset="utf-8">
+
+		<link rel="apple-touch-icon" sizes="180x180" href="https://www.everythingcanv.as/extras/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="https://www.everythingcanv.as/extras/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="https://www.everythingcanv.as/extras/favicon-16x16.png">
+		<link rel="manifest" href="https://www.everythingcanv.as/extras/site.webmanifest">
+		<link rel="mask-icon" href="https://www.everythingcanv.as/extras/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="https://www.everythingcanv.as/extras/favicon.ico">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="https://www.everythingcanv.as/extras/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		
+		<link rel="stylesheet" href="styles.css">
+	</head>
+
+	<body>
+		
+		<div id="contextMenu" class="context-menu"> 
+			<ul class="menu"> 
+				<li id="download-glb"> download .glb  </li>  
+			</ul> 
+		</div> 
+
+		<div id="drag-drop">
+			<div id="drag-drop-text">
+				<div class="drag-drop-list">.txt : to load everything canvas file</div>
+				<div class="drag-drop-list">.glb / .gltf : to replace the current draw object with another model</div>
+				<div class="drag-drop-list">.png / .jpg : replace the draw object with an image plane</div>
+				<div class="drag-drop-list">thumbnail : replace the draw object with the thumbnail model</div>
+			</div>
+		</div>
+
+		<div id="mobile-controls">
+			<div class="mobile-icons-holder" id="mobile-rotate"></div>
+			<div class="mobile-icons-holder" id="mobile-pan"></div>
+			<!--<div class="mobile-icons-holder" id="mobile-zoom"></div>-->
+			<div class="mobile-icons-holder" id="mobile-eye"></div>
+		</div>
+		
+		<div id="instructions-overlay" >
+			<div id="instructions-holder">
+				<div id="splash-img-holder">
+					<img id="splash" class="splash-img" >
+				</div>
+				<div class="instructions-bg">	
+					<ul class="instruction-list">
+						<li>Tested with chrome and safari mobile</li>
+						<li>Tablets and mobile supported</li>
+						<li>[LMB] to draw</li>
+						<li>[ALT + LMB] to rotate </li>
+						<li>[Scroll / ALT + CTRL + LMB] to zoom in/out</li>
+						<li>[CTRL + LMB] to pan up and down</li>
+						<li>[CTRL Z / CTRL Y] undo and redo stroke </li>
+						<li>[SHIFT] toggle stroke select </li>
+						<li>[SPACE] to toggle UI </li>
+						<li><a href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit?usp=sharing" target="_blank">Full docs here</a></li>
+						<li>Models from the <a href="https://www.davidoreilly.com/library" target="_blank">Everything Library</li>
+						<li>Tool by <a class="normal-link" href="https://twitter.com/strugggggs" target="_blank"> Vince Mckelvie</a> </li>
+					</ul>
+					<div id="got-it-btn-holder">
+						<button class="btn" id="got-it-btn">got it.</button>
+					</div>
+				</div>
+			</div>
+			<div id="instructions-holder-mobile">
+				<div id="splash-img-holder-mobile">
+					<img id="splash-mobile" class="splash-img-mobile">
+				</div>
+				<div class="instructions-bg">
+					<ul class="instruction-list">
+						<li>Tested with chrome and safari mobile</li>
+						<li>Tablets and mobile supported</li>
+						<li>[PRESS] to draw</li>
+						<li>[PRESS + <img class="instructions-img" src="./extras/rotate.svg"/> ] to rotate </li>
+						<li>[PINCH] to zoom in/out</li>
+						<li>[PESS + <img class="instructions-img" src="./extras/pan.svg"/> ] to pan up and down</li>
+						<li>[<img class="instructions-img" src="./extras/eye.svg"/>] to toggle ui </li>
+						<li><a href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit?usp=sharing" target="_blank">Full docs here</a></li>
+						<li>Models from the <a href="https://www.davidoreilly.com/library" target="_blank">Everything Library</li>
+						<li>Tool by <a class="normal-link" href="https://twitter.com/strugggggs" target="_blank"> Vince Mckelvie</a> </li>
+
+					</ul>
+					<div id="got-it-btn-holder">
+						<button class="btn" id="got-it-mobile-btn">got it.</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="holders" id="tools-holder">
+			<div class="sub-holders">
+				<div id="main-btns-holder">
+					<div class="geo-ink-title">
+						Everything Canvas 
+					</div>
+					<div class="tooltip">
+						<button class="btn inline-btns" id="show-instructions">splash screen</button> 
+					</div>
+					<div class="tooltip">
+						<button class="btn inline-btns" id="fullscreen">fullscreen</button> 
+						<span class="tooltiptext">[f]</span>
+					</div>
+					<div class="tooltip">
+						<button class="btn inline-btns" id="reset-cam"> reset cam </button> 
+						<span class="tooltiptext">[c]</span>
+					</div>
+					<div class="tooltip">
+						<div class="slider-info" style="margin-top: 10px; font-size: 12px; margin-bottom: -7px;">draw mode</div>
+						<button class="btn inline-btns" id="toggle-draw-on-view"> view & object </button> 
+						<span class="tooltiptext">[v]</span>
+					</div>
+					<div class="tooltip">
+						<button class="btn inline-btns" id="toggle-draw-object"> hide draw object </button>
+						<span class="tooltiptext">[b]</span>
+					</div>
+					<div class="tooltip">
+						<button class="btn inline-btns" id="stroke-select-toggle">stroke select </button> 
+						<span class="tooltiptext" style="width: 35px;">[shift]</span>
+					</div>
+					
+					<div>
+						<div class="tooltip inline-tooltip">
+							<button class="btn inline-btns" id="undo"> undo </button>
+							<span class="tooltiptext" style="width: 35px;">[ctrl z]</span>
+						</div>
+						<div class="tooltip inline-tooltip" >
+							<button class="btn inline-btns" id="redo"> redo </button>
+							<span class="tooltiptext" style="width: 35px;">[ctrl y]</span>
+						</div>
+					</div>
+					
+				</div>
+
+				<div id="stroke-select-options" style="display:none;">
+					
+					<div id="stroke-index-text" style="margin-top: 20px; margin-bottom: 0px; font-size: 12px;">selected stroke index <input id="stroke-index-input" style="width:30px" value="0" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" /> </div>
+						
+					<div class="slider-holder">
+						<span class="slider-info">gizmo</span>
+						<div class="tooltip inline-tooltip">
+							<span class="tooltiptext">[w]</span>
+							<button class="btn inline-btns" id="stroke-move"> move </button>
+						</div>
+						<div class="tooltip inline-tooltip">
+							<span class="tooltiptext">[e]</span>
+							<button class="btn inline-btns" id="stroke-rotate"> rotate </button>
+						</div>
+						<div class="tooltip inline-tooltip">
+							<span class="tooltiptext">[r]</span>
+							<button class="btn inline-btns" id="stroke-scale"> scale </button>
+						</div>
+					</div>
+					
+					<div class="slider-holder">
+						<span class="slider-info">stroke scale offset</span>
+						<input id="stroke-scale-offset" class="control-slider" type="range" min="0" max="200" value="100" >
+					</div>
+					<div class="slider-holder">
+						<span class="slider-info">stroke rotation x</span>
+						<input id="stroke-rot-offset-x" class="control-slider" type="range" min="0" max="200" value="0" >
+					</div>
+					<div class="slider-holder">
+						<span class="slider-info">stroke rotation y</span>
+						<input id="stroke-rot-offset-y" class="control-slider" type="range" min="0" max="360" value="0" >
+					</div>
+					<div class="slider-holder">
+						<span class="slider-info">stroke rotation z</span>
+						<input id="stroke-rot-offset-z" class="control-slider" type="range" min="0" max="360" value="0" >
+					</div>
+					<div class="slider-holder">
+						<div class="tooltip inline-tooltip">
+							<span class="tooltiptext">[del] [backspace]</span>
+							<button class="btn inline-btns" id="stroke-delete" style="margin-top:20px"> delete stroke </button>
+						</div>
+						
+					</div>
+				</div>
+				<div class="drop-down-holder">
+					<div class="drop-down-title" id="draw-object-title" >
+						Draw Object <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.adue4ajximgn" target="_blank">?</a>
+					</div>
+					<div class="drop-down-content" id="draw-object-content">
+						<div id="c-size" class="draw-objects-holder" >
+							<button id="draw-object-0" class="btn inline-btns" > 0 </button> 				
+							<button id="draw-object-1" class="btn inline-btns" > 1 </button>
+							<button id="draw-object-2" class="btn inline-btns" > 2 </button>
+							<button id="draw-object-3" class="btn inline-btns" > 3 </button>
+							<button id="draw-object-4" class="btn inline-btns" > 4 </button>
+							<button id="draw-object-5" class="btn inline-btns" > 5 </button>
+							<button id="draw-object-6" class="btn inline-btns" > 6 </button>
+							<button id="draw-object-7" class="btn inline-btns" > 7 </button>
+							<button id="draw-object-8" class="btn inline-btns" > 8 </button>
+							<button id="draw-object-9" class="btn inline-btns" > 9 </button>
+							<button id="draw-object-10" class="btn inline-btns" > 10 </button>
+							<div class="slider-holder">
+								<span class="slider-info">draw object opacity</span>
+								<input id="draw-object-opacity" class="control-slider" type="range" min="0" max="60" value="60" >
+							</div>
+							<div class="slider-holder">
+								<span class="slider-info">view draw color</span>
+								<input id="view-draw-color" class="color-select" type="color" value="#2d69a9" >
+							</div>
+							<div class="slider-holder">
+									<div class="tooltip inline-tooltip" style="width:180px">
+										<span class="tooltiptext" style="margin-top:-15px; margin-left: 100px; ">[ { ]  [ } ]</span>
+										<span class="slider-info">view draw distance</span>
+									</div>
+								<input id="view-draw-distance" class="control-slider" type="range" min="5" max="80" value="20" >
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="draw-mode-options">
+					
+					<div class="drop-down-holder">
+						<div class="drop-down-title" id="essentials-title">
+							Essentials <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.53xvf3mp4dl1" target="_blank">?</a>
+						</div>
+						<div class="drop-down-content" id="essentials-content">
+							
+							<div class="slider-holder">
+								<div class="tooltip inline-tooltip" style="width:70px">
+									<span class="tooltiptext" style="margin-top:-15px; margin-left: 30px; width:30px;">[-][+]</span>
+									<span class="slider-info">size</span>
+								</div>
+								<input id="size-slider" class="control-slider" type="range" min="0" max="100" value="10" >
+								
+							</div>
+
+							
+
+							<div class="slider-holder">
+								<span class="slider-info">animation speed</span>
+								<input id="animation-speed-slider" class="control-slider" type="range" min="0" max="100" value="10" >
+							</div>
+							
+
+							<div class="check-holder">
+								<label class="control control-checkbox">
+										animate size
+										<input type="checkbox" id="should-size-ease-in-out" checked />
+									<div class="control_indicator"></div>
+								</label>
+								<!--
+								<span class="slider-info">animate size in and out</span>
+								<input class="control control-checkbox" type="checkbox" id="should-size-ease-in-out" checked>
+								-->
+							</div>
+							<div class="slider-holder">
+								<span class="slider-info">smooth amount</span>
+								<input id="smooth-amount" class="control-slider" type="range" name="infoSize" min="10" max="100" value="90" >
+							</div>
+
+							<div class="slider-holder">
+								
+								<div class="tooltip inline-tooltip" style="width:70px">
+									<span class="tooltiptext" style="margin-top:-15px; margin-left: 30px; width:90px;">[ ; ] [ ' ] reset - L </span>
+									<span class="slider-info tooltip-helper-slider">normal offset</span>
+								</div>
+								<input id="normal-offset-amount" class="control-slider" type="range" min="-100" max="100" value="5" >
+							</div>
+							<div class="slider-holder">
+								<div class="tooltip inline-tooltip" style="width:70px">
+									<span class="tooltiptext" style="margin-top:-15px; margin-left: 30px; width:50px;">[ &lt ] [ &gt ] </span>
+									<span class="slider-info tooltip-helper-slider">stroke denisty</span>
+								</div>
+								<input id="density-amount" class="control-slider" type="range" min="1" max="100" value="20" >
+							
+							</div>
+							
+
+						</div>
+					</div>
+
+					<div class="drop-down-holder">
+						<div class="drop-down-title" id="scatter-title" >
+							Scatter <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.wpztqfca3w55" target="_blank">?</a>
+						</div>
+						<div class="drop-down-content" id="scatter-content">
+							<!--
+							<div id="brush-before" style="margin-top: 20px; margin-bottom: 0px; font-size: 12px;">amount before<input id="brush-before-input" style="width:30px; margin-left: 5px;" value="0" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" /> </div>
+							<div id="brush-after" style="margin-top: 20px; margin-bottom: 0px; font-size: 12px;">amount after<input id="brush-after-input" style="width:30px; margin-left: 5px;" value="0" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" /> </div>
+							-->
+
+							<div class="check-holder">
+								<!--
+								<div class="tooltip inline-tooltip" style="width:70px">
+									<span class="tooltiptext" style="margin-top:-15px; margin-left: 30px; width:50px;">[ hold s ]</span>
+									<span class="slider-info tooltip-helper">scatter select</span>
+								</div> 
+								<input style="margin-left: 50px;" class="control control-checkbox tooltip-checkbox" type="checkbox" id="scatter-select" >
+								-->
+								<label class="control control-checkbox">
+									<div class="tooltip inline-tooltip" style="width:70px">
+										<span class="tooltiptext" style="margin-top:-15px; margin-left: 30px; width:50px;">[ hold s ]</span>
+										<span class="slider-info tooltip-helper">scatter select</span>
+									</div> 
+									<input type="checkbox" id="scatter-select" />
+									<div class="control_indicator"></div>
+								</label>
+							</div>
+
+						
+							<div class="check-holder">
+								<!--
+								<div class="tooltip inline-tooltip" style="width:70px">
+									<span class="tooltiptext" style="margin-top:-15px; margin-left: 30px; width:50px;">[ hold z ]</span>
+									<span class="slider-info">scatter</span>
+								</div>
+								
+								<input class="control control-checkbox" type="checkbox" id="scatter-check">
+								-->
+								<label class="control control-checkbox">
+									<div class="tooltip inline-tooltip" style="width:70px">
+										<span class="tooltiptext" style="margin-top:-15px; margin-left: 30px; width:50px;">[ hold z ]</span>
+										<span class="slider-info tooltip-helper">scatter brush</span>
+									</div> 
+									<input type="checkbox" id="scatter-check" />
+									<div class="control_indicator"></div>
+								</label>
+							</div>
+
+							<div class="slider-holder">
+								<span class="slider-info">scale random</span>
+								<input id="rnd-scale" class="control-slider" type="range" min="0" max="100" value="0" >
+							</div>
+							<div class="slider-holder">
+								<span class="slider-info">position random</span>
+								<input id="rnd-position" class="control-slider" type="range" min="0" max="100" value="0" >
+							</div>
+						</div>
+					</div>
+
+					<div class="drop-down-holder">
+						<div class="drop-down-title" id="mirror-title">
+							Mirror <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.fraddtjtv3v1" target="_blank">?</a>
+						</div>
+						<div class="drop-down-content" id="mirror-content">
+							<label class="control control-checkbox">
+								mirror x
+								<input type="checkbox" id="mirror-x" checked />
+								<div class="control_indicator"></div>
+							</label>
+							<label class="control control-checkbox">
+								mirror y
+								<input type="checkbox" id="mirror-y" />
+								<div class="control_indicator"></div>
+							</label>
+							<label class="control control-checkbox">
+								mirror z
+								<input type="checkbox" id="mirror-z" />
+								<div class="control_indicator"></div>
+							</label>
+							<!--
+							<div class="check-holder">
+								<span class="slider-info">mirror x</span>
+								<input class="control control-checkbox" type="checkbox" id="mirror-x" checked>
+							</div>
+
+							<div class="check-holder">
+								<span class="slider-info">mirror y</span>
+								<input class="control control-checkbox" type="checkbox" id="mirror-y">
+							</div>
+
+							<div class="check-holder">
+								<span class="slider-info">mirror z</span>
+								<input class="control control-checkbox" type="checkbox" id="mirror-z">
+							</div>
+							-->	
+						</div>
+					</div>
+					
+					
+					<div class="drop-down-holder">
+						<div class="drop-down-title" id="rotation-title" >
+							Rotation <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.rlx1w3od8u49" target="_blank">?</a>
+						</div>
+						
+						<div class="drop-down-content" id="rotation-content">
+							<div class="slider-holder">
+								<span class="slider-info">additive rotation speed</span>
+								<input id="additive-rotation-slider" class="control-slider" type="range" min="0" max="50" value="0" >
+							</div>
+
+							<!--
+							<div class="check-holder">
+								<span class="slider-info">rotation by normals</span>
+								<input class="control control-checkbox" type="checkbox" id="rotation-follows-normal" checked>
+							</div>	
+							-->
+							<label class="control control-checkbox">
+								rotation by normals
+								<input type="checkbox" id="rotation-follows-normal" checked/>
+								<div class="control_indicator"></div>
+							</label>
+							<div class="slider-holder">
+								<span class="slider-info">rotate x</span>
+								<input id="rotate-slider-x" class="control-slider" type="range" min="0" max="628" value="0" >
+							
+							</div>
+							<div class="slider-holder">
+								<span class="slider-info">rotate y</span>
+								<input id="rotate-slider-y" class="control-slider" type="range" min="0" max="360" value="0" >
+							
+							</div>
+							<div class="slider-holder">
+								<span class="slider-info">rotate z</span>
+								<input id="rotate-slider-z" class="control-slider" type="range" min="0" max="360" value="0" >
+							
+							</div>
+							<label class="control control-checkbox">
+								additive rotation x
+								<input type="checkbox" id="additive-rotation-x" checked/>
+								<div class="control_indicator"></div>
+							</label>
+							<label class="control control-checkbox">
+								additive rotation y
+								<input type="checkbox" id="additive-rotation-y" checked/>
+								<div class="control_indicator"></div>
+							</label>
+							<label class="control control-checkbox">
+								additive rotation z
+								<input type="checkbox" id="additive-rotation-z" checked/>
+								<div class="control_indicator"></div>
+							</label>
+							<!--
+							<div class="slider-holder">
+								<span class="slider-info">additive rotation x</span>
+								<input class="control control-checkbox" type="checkbox" id="additive-rotation-x" checked>
+							</div>
+							<div class="slider-holder">
+								<span class="slider-info">additive rotation y</span>
+								<input class="control control-checkbox" type="checkbox" id="additive-rotation-y" checked>
+							</div>
+							<div class="slider-holder">
+								<span class="slider-info">additive rotation z</span>
+								<input class="control control-checkbox" type="checkbox" id="additive-rotation-z" checked>
+							</div>
+							-->
+
+						</div>
+					</div>
+							
+					
+					
+					
+				</div>
+				<div class="drop-down-holder">
+					<div class="drop-down-title" id="background-title">
+						Background <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.qsobwuor4bg7" target="_blank">?</a>
+					</div>
+					<div class="drop-down-content" id="background-content">
+						<div class="slider-holder">
+							<!--<img class="i-large" src="assets/svg/paint_grey.svg">-->
+							<span class="slider-info">background gradient size</span>
+							<input id="background-gradient-size" class="control-slider" type="range" min="0" max="900" value="90" >
+						
+						</div>
+						<div class="slider-holder">
+							<!--<img class="i-large" src="assets/svg/paint_grey.svg">-->
+							<span class="slider-info">background gradient offset</span>
+							<input id="background-gradient-offset" class="control-slider" type="range" min="-500" max="500" value="0" >
+						</div>
+
+						<div class="slider-holder">
+							<!--<img class="i-large" src="assets/svg/paint_grey.svg">-->
+							<span class="slider-info">background color top</span>
+							<input class="color-select" id="background-color-top" type="color" value="#333333" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">background color bottom</span>
+							<input class="color-select" id="background-color-bottom" type="color" value="#333333" >
+						</div>
+					</div>
+				</div>
+				<div class="drop-down-holder" >
+					<div class="drop-down-title" id="shader-effects-title" >
+						Shader Effects <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.r7hyhr6uiaf0" target="_blank">?</a>
+					</div>
+					<div class="drop-down-content" id="shader-effects-content">
+
+						<div class="slider-holder">
+							<span class="slider-info">rainbow tint amount</span>
+							<input id="rainbow-tint-amount" class="control-slider" type="range" min="0" max="100" value="0" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">rainbow size</span>
+							<input id="rainbow-size" class="control-slider" type="range" min="0" max="300" value="10" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">gradient size</span>
+							<input id="model-gradient-size" class="control-slider" type="range" min="0" max="100" value="0" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">gradient angle</span>
+							<input id="model-gradient-angle" class="control-slider" type="range" min="-156" max="156" value="0" >
+						</div>
+
+						<div class="slider-holder">
+							<span class="slider-info">gradient add</span>
+							<input id="model-gradient-add" class="control-slider" type="range" min="0" max="1200" value="0" >
+						</div>
+
+						<div class="slider-holder">
+							<span class="slider-info">gradient offset</span>
+							<input id="model-gradient-offset" class="control-slider" type="range" min="-200" max="200" value="0" >
+						</div>
+						<!--
+						<div class="check-holder">
+							<span class="slider-info">loop gradient</span>
+							<input class="control control-checkbox" type="checkbox" id="loop-gradient" checked>
+						</div>
+						-->
+						<label class="control control-checkbox">
+							loop gradient
+							<input type="checkbox" id="loop-gradient" checked/>
+							<div class="control_indicator"></div>
+						</label>
+
+						<div class="slider-holder">
+							<span class="slider-info">tint gradient top</span>
+							<input class="color-select" type="color" id="model-color-top" type="color" value="#ffffff">
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">tint gradient bottom</span>
+							<input class="color-select" id="model-color-bottom" type="color" value="#ffffff" >
+						</div>
+						
+
+						<div class="slider-holder">
+							<span class="slider-info">noise deform amount</span>
+							<input id="noise-deform" class="control-slider" type="range" min="0" max="100" value="0" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">noise size</span>
+							<input id="noise-size" class="control-slider" type="range" min="0" max="200" value="100" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">twist deform amount</span>
+							<input id="twist-deform" class="control-slider" type="range" min="0" max="200" value="0" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">twist size</span>
+							<input id="twist-size" class="control-slider" type="range" min="0" max="200" value="100" >
+						</div>
+						<div class="slider-holder">
+							<span class="slider-info">deform speed</span>
+							<input id="deform-speed" class="control-slider" type="range" min="0" max="200" value="33" >
+						</div>
+						<div class="slider-holder" >
+							<span class="slider-info">color speed</span>
+							<input id="color-speed" class="control-slider" type="range" min="0" max="200" value="33" >
+						</div>
+					</div>
+
+				</div>
+				<div class="drop-down-holder" style="padding-bottom: 200px;">
+					<div class="drop-down-title" id="export-title">
+						Save / Export <a class="docs-q" href="https://docs.google.com/document/d/1U4UNE_WZPhLMIbGGUupVMMbWsvieEhi8YsgqIiQPR6M/edit#bookmark=id.2ilo5bo0tdq3" target="_blank">?</a>
+					</div>
+					
+				
+
+					<div class="drop-down-content" id="export-content">
+						<button class="btn inline-btns" id="export-gltf"> export .glb </button> <br/>
+						<button class="btn inline-btns" id="render-download"> render image </button> <br/>
+						<button class="btn inline-btns" id="save-geo-ink-file"> save canvas </button> <br/>
+					</div>
+				</div>
+				
+				 
+
+			</div>
+			
+		</div>
+		<div class="holders" id="select">
+			<div class="sub-holders" id="models"></div>
+		</div>
+		<script src="./extras/jquery.js"></script>
+		<script src="./main.js" type="module"></script>	
+	
+	</body>
+</html>
